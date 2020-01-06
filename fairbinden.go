@@ -422,7 +422,7 @@ func SendSlack(w http.ResponseWriter, r *http.Request) {
 				Text:       mainText,
 				ImageURL:   imageURL,
 				// ThumbnailURL: "http://example.com/path/to/thumb.png",
-				Footer: "税込800円 12:00-14:00",
+				Footer: "税込800円 11:00-14:00",
 				// FooterIcon: "https://platform.slack-edge.com/img/default_application_icon.png",
 				Timestamp: unixTime,
 			}
