@@ -1,2 +1,4 @@
 // Configure Slack API
 config.sh
+// Environment Info
+.deploy.txt

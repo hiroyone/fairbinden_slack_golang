@@ -358,9 +358,9 @@ func SendSlack(w http.ResponseWriter, r *http.Request) {
 
 	var webhookURL string
 	if env == "PRD" {
-		webhookURL = os.Getenv("Channel_PRD")
+		webhookURL = os.Getenv("channelPRD")
 	} else if env == "STG" {
-		webhookURL = os.Getenv("Channel_STG")
+		webhookURL = os.Getenv("channelSTG")
 	} else {
 		Error.Println("The value must be either PRD or STG")
 	}
@@ -389,23 +389,26 @@ func SendSlack(w http.ResponseWriter, r *http.Request) {
 
 			Info.Println("Today's lunch menu URL:", *dayMenuURL)
 			lunchAction := Action{
-				Type: "button",
-				Text: "今日のランチ🍚",
+				Type:  "button",
+				Text:  "今日のランチ🍚",
 				Url:   *dayMenuURL,
 				Style: "primary",
 			}
 
-			var labobenAction Action
-			// Laboben is not available on Friday
+			var officeLunchAction Action
+			officeLunchURL := os.Getenv("channelOfficeBen")
+			Info.Println("Office Lunch URL: ", officeLunchURL)
+
+			// OfficeLunch is not available on Friday in my company
 			if now.Weekday() <= 4 {
-				labobenAction = Action{
+				officeLunchAction = Action{
 					Type:  "button",
-					Text:  "やっぱり会社の弁🍱",
-					Url:   os.Getenv("channel_office_ben"),
+					Text:  "やっぱり会社の弁当🍱",
+					Url:   officeLunchURL,
 					Style: "danger",
 				}
 			} else {
-				labobenAction = Action{}
+				officeLunchAction = Action{}
 			}
 
 			Info.Println("Prepare attachments for slack posting")
@@ -413,7 +416,7 @@ func SendSlack(w http.ResponseWriter, r *http.Request) {
 				Fallback:   "Required plain-text summary of the attachment.",
 				Color:      "#36a64f",
 				PreText:    japaneseDate + "のランチです！",
-				Actions:    []Action{lunchAction, labobenAction},
+				Actions:    []Action{lunchAction, officeLunchAction},
 				AuthorName: "フェアビンデン GO!",
 				AuthorLink: "http://xn--jvrr89ebqs6yg.tokyo/",
 				AuthorIcon: "http://flickr.com/icons/bobby.jpg",
@@ -441,11 +444,3 @@ func SendSlack(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
-
-// How to deploy the code
-// cd go/src/fairbindenlunch
-// go build
-// ENV="STG" go run cmd/main.go
-// Go to http://localhost:18082/fairbinden
-
-// Testing

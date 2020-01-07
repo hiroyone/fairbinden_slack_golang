@@ -1,8 +1,8 @@
 package main
 
 import (
-	fairbinden "fairbindenlunch"
 	"net/http"
+	fairbinden "slack_fairbinden"
 )
 
 func main() {
