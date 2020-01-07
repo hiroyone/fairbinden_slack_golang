@@ -13,8 +13,9 @@ Tech Stack
 1. Set up channel urls for productin and staging as export variables before cloud function is deployed and triggered  
 Examples
 ```
-export Channel_PRD = "https://hooks.slack.com/services/xxxxxx/xxxxx/xxxxxxxxxxxxxxxxxxxxx"
-export Channel_STG = "https://hooks.slack.com/services/qqqqqq/sssss/sssssssssssssssssssss"
+export channelPRD = "https://hooks.slack.com/services/xxxxxx/xxxxx/xxxxxxxxxxxxxxxxxxxxx"
+export channelSTG = "https://hooks.slack.com/services/qqqqqq/sssss/sssssssssssssssssssss"
+export channelOfficeBen = "https://app.slack.com/client/xxxxxxxxxxxxxxxx" 
 ```
 
 2. Deploy the code to Cloud Function with Golang 1.1 runtime
